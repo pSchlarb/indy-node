@@ -4,6 +4,7 @@ from .__metadata__ import (
     __author_email__, __maintainer__, __license__,
     load_version, set_version, load_manifest, set_manifest
 )
+import pkg_resources
 
 PLUGIN_LEDGER_IDS = set()
 PLUGIN_CLIENT_REQUEST_FIELDS = {}
@@ -50,7 +51,7 @@ def setup_plugins():
                           format(plugin_root))
     sys.path.insert(0, plugin_root.__path__[0])
     enabled_plugins = config.ENABLED_PLUGINS
-    installed_packages = {p.project_name: p for p in pip.get_installed_distributions()}
+    installed_packages = [str(d) for d in pkg_resources.working_set]
     for plugin_name in enabled_plugins:
         plugin = find_and_load_plugin(plugin_name, plugin_root, installed_packages)
         plugin_globals = plugin.__dict__
