@@ -7,6 +7,7 @@ on:
 
     branches:
       - ubuntu-20.04-upgrade
+      - test-testreport
   workflow_dispatch:
 
 jobs:
